@@ -12,19 +12,19 @@ BLOCKSIZE = 128
 
 def generatekeys():
     """Produces two text files containing public and private keys."""
-    prime = cr.findPrime(bits=2048, tries=10000)
-    coeff = random.randint(1,prime-1)
+    prime = cr.findPrime(bits = 2048, tries = 10000)
+    coeff = random.randint(1, prime - 1)
     foundxP = False
     while not foundxP:
-        xP = random.randint(1,prime)
+        xP = random.randint(1, prime)
         xP_cubed = pow(xP, 3, prime)
-        AxP = coeff*xP % prime
+        AxP = coeff * xP % prime
         X = xP_cubed + AxP % prime
-        if pow(X, (prime-1)//2, prime) == 1:
+        if pow(X, (prime - 1) // 2, prime) == 1:
             foundxP = True
-    yP = pow(X,(prime+1)//4, prime)
+    yP = pow(X,(prime + 1) // 4, prime)
     randPoint = [xP, yP]
-    N = random.randint(2,prime-1)
+    N = random.randint(2, prime - 1)
     curve = [coeff, 0]
     Q = cr.ellipticCurveMultiplication(curve , prime, randPoint, N)
 
@@ -36,7 +36,7 @@ def generatekeys():
     fo.write('%s, %s, %s, %s' % (prime, coeff, randPoint, N))
     fo.close()
 
-def encrypt(publicKeyFilename='my_elgamal_public_key.txt', plaintextFilename='plaintext.txt'):
+def encrypt(publicKeyFilename = 'my_elgamal_public_key.txt', plaintextFilename = 'plaintext.txt'):
     """"Encrypts plaintext to ciphertext."""
     fo = open(plaintextFilename, 'r')
     plaintext = fo.read()
@@ -86,7 +86,7 @@ def encrypt(publicKeyFilename='my_elgamal_public_key.txt', plaintextFilename='pl
     encryptedFile = open('elgamal_encrypted_message.txt', 'w')
     encryptedFile.write("%s" % (ciphertext))
 
-def decrypt(privateKeyFilename='my_elgamal_private_key.txt',ciphertextFilename='elgamal_encrypted_message.txt'):
+def decrypt(privateKeyFilename = 'my_elgamal_private_key.txt', ciphertextFilename = 'elgamal_encrypted_message.txt'):
     """Decrypts ciphertext to plaintext."""
     fo = open(privateKeyFilename, 'r')
     privatekeycontent = fo.read()
