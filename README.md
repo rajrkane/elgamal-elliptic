@@ -1,5 +1,5 @@
 # elgamal-elliptic
-An command-line implementation of the Elgamal public-key cryptosystem using elliptic curves. Uses 2048-bit primes that are congruent to 3 modulo 4. 
+A command-line implementation of the Elgamal public-key cryptosystem using elliptic curves. Uses 2048-bit primes that are congruent to 3 modulo 4. 
 Divides the plaintext into blocks of 128 characters. Converts each block to an integer by interpreting the ASCII encodings of the 
 characters in the block as the base-256 digits of the integer.
 
